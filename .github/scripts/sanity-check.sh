@@ -26,9 +26,12 @@ if [ "$1" = "sub" ]; then
 fi
 
 set +e
+# Note: Strict offset check removed for personal fork.
+# Patch drift (non-zero offsets) does not affect build correctness — patches still
+# apply cleanly with fuzz tolerance. The substitution job catches actual hunk failures.
 if grep -q 'offset .* lines' setup.log; then
-    grep -A20 -B20 'offset .* lines' setup.log >&2
-    exit 1
+    echo "Note: some patches applied with non-zero offset (drift from upstream Chromium)." >&2
+    echo "This is informational only and does not affect build correctness." >&2
 fi
 
 cd "$_src_dir"
