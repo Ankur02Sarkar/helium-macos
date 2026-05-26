@@ -5,7 +5,7 @@ on:
       runner:
         required: false
         description: "Runner image name"
-        default: "macos-13"
+        default: "macos-latest"
       do-release:
         required: false
         type: boolean

@@ -24,9 +24,9 @@ if [ -f $_root_dir/announcements.md ]; then
     printf '### Release Assets Info %s\n\n' | tee -a ./github_release_note.md
 fi
 
-cat $_arm64_hash_name | tee -a ./github_release_note.md
+[ -f "$_arm64_hash_name" ] && cat $_arm64_hash_name | tee -a ./github_release_note.md || true
 printf '\n' | tee -a ./github_release_note.md
-cat $_x64_hash_name | tee -a ./github_release_note.md
+[ -f "$_x64_hash_name" ] && cat $_x64_hash_name | tee -a ./github_release_note.md || true
 
 submodule_commit_at() {
     git ls-tree "$1" helium-chromium | awk '{print $3}'
