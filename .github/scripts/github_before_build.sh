@@ -20,7 +20,10 @@ fi
 
 cp "$_main_repo/flags.gn" "$_src_dir/out/Default/args.gn"
 cat "$_root_dir/flags.macos.gn" >> "$_src_dir/out/Default/args.gn"
-echo 'cc_wrapper="sccache"' >> "$_src_dir/out/Default/args.gn"
+# sccache disabled: GHAC backend requires ACTIONS_CACHE_URL which is not
+# available in forked repos without explicit cache permissions setup.
+# The build artifact (.tar.zst) preserves compiled objects between jobs anyway.
+# echo 'cc_wrapper="sccache"' >> "$_src_dir/out/Default/args.gn"
 
 if ! [ -z "${PROD_MACOS_SPARKLE_ED_PUB_KEY-}" ]; then
   echo 'enable_sparkle=true' >> "$_src_dir/out/Default/args.gn"
